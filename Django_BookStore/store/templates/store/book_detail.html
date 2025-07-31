@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-5">
+            {% if book.cover_image %}
+            <img src="{{ book.cover_image }}" class="img-fluid" alt="{{ book.title }}">
+            {% endif %}
+        </div>
+        <div class="col-md-7">
+            <h2>{{ book.title }}</h2>
+            <h5 class="text-muted">by {{ book.author }}</h5>
+            <p>{{ book.description }}</p>
+            <p><strong>Price:</strong> ${{ book.price }}</p>
+            <p><strong>Stock:</strong> {{ book.stock }}</p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_to_cart' book.pk %}" class="btn btn-success">Add to Cart</a>
+            {% else %}
+            <a href="/admin/login/?next={{ request.path }}" class="btn btn-secondary">Login to add to cart</a>
+            {% endif %}
+            <a href="/" class="btn btn-link">Back to Books</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
